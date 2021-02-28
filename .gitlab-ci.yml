@@ -1,0 +1,15 @@
+stages:
+  - build
+
+build_windows:
+  stage: build
+  tags:
+    - windows
+  script:
+    - py build.py
+    - py package.py
+  artifacts:
+    paths:
+      - 'build/ungoogled-chromium*.exe'
+      - 'build/ungoogled-chromium*.zip'
+    expire_in: 14 days
