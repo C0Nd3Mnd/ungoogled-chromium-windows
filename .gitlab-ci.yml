@@ -24,6 +24,8 @@ build_windows:
 
 release_windows:
   stage: release
+  tags:
+    - windows
   needs:
     - job: build_windows
       artifacts: true
