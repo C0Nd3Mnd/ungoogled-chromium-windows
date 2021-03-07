@@ -1,5 +1,6 @@
 stages:
   - build
+  - release
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
@@ -9,10 +10,26 @@ build_windows:
   tags:
     - windows
   script:
-    - py build.py
-    - py package.py
+    # - py build.py
+    # - py package.py
+    - for /f "delims=" %%x in (ungoogled-chromium\chromium_version.txt) do set CHROMIUM_VERSION=%%x
+    - echo RELEASE_NAME=%CHROMIUM_VERSION% >> variables.env
   artifacts:
     paths:
       - 'build/ungoogled-chromium*.exe'
       - 'build/ungoogled-chromium*.zip'
     expire_in: 14 days
+    reports:
+      dotenv: variables.env
+
+release_windows:
+  stage: release
+  needs:
+    - job: build_windows
+      artifacts: true
+  script:
+    - echo Running release job for %RELEASE_NAME%.
+  release:
+    name: ${RELEASE_NAME}_${CI_COMMIT_SHA},
+    tag_name: ${RELEASE_NAME}_${CI_COMMIT_SHA},
+    ref: ${CI_COMMIT_SHA}
