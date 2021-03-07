@@ -30,7 +30,7 @@ release_windows:
   script:
     - echo Running release job for %RELEASE_NAME%.
   release:
-    name: ${RELEASE_NAME}_${CI_COMMIT_SHA},
-    description: 'Release ${RELEASE_NAME} from commit ${CI_COMMIT_SHA}',
-    tag_name: ${RELEASE_NAME}_${CI_COMMIT_SHA},
+    name: ${RELEASE_NAME}_${CI_COMMIT_SHA}
+    description: Release ${RELEASE_NAME} from commit ${CI_COMMIT_SHA}
+    tag_name: ${RELEASE_NAME}_${CI_COMMIT_SHA}
     ref: ${CI_COMMIT_SHA}
