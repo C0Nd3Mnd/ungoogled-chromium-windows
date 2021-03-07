@@ -8,7 +8,7 @@ variables:
 build_windows:
   stage: build
   tags:
-    - windows
+    - custom-windows
   script:
     # - py build.py
     # - py package.py
@@ -25,7 +25,8 @@ build_windows:
 release_windows:
   stage: release
   tags:
-    - windows
+    - docker
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
   needs:
     - job: build_windows
       artifacts: true
