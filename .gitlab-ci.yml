@@ -10,8 +10,8 @@ build_windows:
   tags:
     - custom-windows
   script:
-    # - py build.py
-    # - py package.py
+    - py build.py
+    - py package.py
     - for /f "delims=" %%x in (ungoogled-chromium\chromium_version.txt) do set CHROMIUM_VERSION=%%x
     - echo RELEASE_NAME=%CHROMIUM_VERSION% >> variables.env
   artifacts:
